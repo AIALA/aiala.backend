@@ -1,0 +1,102 @@
+﻿@using aiala.Backend.Data.Schedule
+@model Day
+
+<html>
+<head>
+    <title>@Model.Date.ToString("d") - @Model.Name</title>
+</head>
+<body>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0cm 2cm;
+        }
+
+        h2 {
+            margin-top: 2cm;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        .print-group {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        #title {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .check-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .check {
+            display: block;
+            width: 8px;
+            height: 8px;
+            border: 1px solid black;
+            margin-right: 10px;
+        }
+    </style>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <h2 id="title">
+                        <span>@Model.Name</span>
+                        <span>@Model.Date.ToString("d")</span>
+                    </h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model.Tasks)
+            {
+                <tr class="print-group">
+                    <td>
+                        <p class="check-container">
+                            <span class="check"></span>
+                            <span>@task.Start.ToString(@"hh\:mm") - @task.End.ToString(@"hh\:mm") <b>@task.Name</b></span>
+                        </p>
+
+                        <ol>
+                            @foreach (var step in task.Steps)
+                            {
+                                <li class="check-container">
+                                    <div class="check"></div>
+                                    <span>
+                                        @{
+                                            var lines = step.Text.Split('\n');
+                                            for (var i = 0; i < lines.Length; i++)
+                                            {
+                                                <text>@lines[i]</text>
+                                                if (i < lines.Length - 1)
+                                                {
+                                                    <text><br /></text>
+                                                }
+                                            }
+                                        }
+                                    </span>
+                                </li>
+                            }
+                        </ol>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

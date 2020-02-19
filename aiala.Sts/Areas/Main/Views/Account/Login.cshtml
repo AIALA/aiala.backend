@@ -1,0 +1,95 @@
+﻿@model LoginViewModel
+
+<div class="mdl-card__title">
+    <h3>@_l10n["Login"]</h3>
+</div>
+
+<div class="mdl-card__supporting-text">
+
+    @(await Html.PartialAsync("_ValidationSummary"))
+    @if (Model.EnableLocalLogin)
+    {
+        <form asp-route="Login">
+            <input type="hidden" asp-for="ReturnUrl" />
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label asp-for="Username" for="username" class="mdl-textfield__label">@_l10n["Email"]</label>
+                <input class="mdl-textfield__input" id="username" asp-for="Username" autofocus>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <label asp-for="Password" for="password" class="mdl-textfield__label">@_l10n["Password"]</label>
+                <input type="password" class="mdl-textfield__input" id="password" asp-for="Password" autocomplete="off">
+            </div>
+
+            @if (Model.AllowRememberLogin)
+            {
+                <div>
+                    <label asp-for="RememberLogin" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="rememberMe">
+                        <input type="checkbox" asp-for="RememberLogin" id="rememberMe" class="mdl-checkbox__input">
+                        <span class="mdl-checkbox__label">@_l10n["RememberLogin"]</span>
+                    </label>
+                </div>
+            }
+
+            <div class="mdl-card__actions">
+                <div>
+                    @if (!string.IsNullOrWhiteSpace(Model.PasswordResetLink))
+                    {
+                        <a href="@Model.PasswordResetLink.Replace("{culture}", System.Globalization.CultureInfo.CurrentCulture.ToString().ToLower())">
+                            @_l10n["ForgotPasswordQuestion"]
+                        </a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.RegistrationLink))
+                    {
+                        <a href="@Model.RegistrationLink.Replace("{culture}", System.Globalization.CultureInfo.CurrentCulture.ToString().ToLower())">
+                            @_l10n["CreateAccountQuestion"]
+                        </a>
+                    }
+                </div>
+
+                <div class="actions-right">
+                    <button name="button" value="login" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">@_l10n["Login"]</button>
+                </div>
+            </div>
+        </form>
+    }
+
+    @if (Model.VisibleExternalProviders.Any())
+    {
+        @if (Model.EnableLocalLogin)
+        {
+            <br />
+            <hr />
+            <center>@_l10n["OrChooseExternalIdp"]</center>
+            <br />
+        }
+        else
+        {
+            <br />
+            <hr />
+            <center>@_l10n["ChooseExternalIdp"]</center>
+            <br />
+        }
+        <div class="col-md-6 col-sm-6 external-providers">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @foreach (var provider in Model.VisibleExternalProviders)
+                    {
+                        <a asp-action="ExternalLogin" asp-route-provider="@provider.AuthenticationScheme" asp-route-returnUrl="@Model.ReturnUrl">
+                            <img src="/images/idp/@(provider.AuthenticationScheme).png" alt="@provider.DisplayName" />
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (!Model.EnableLocalLogin && !Model.VisibleExternalProviders.Any())
+    {
+        <div class="alert alert-warning">
+            @_l10n["NoLoginProviders"]
+        </div>
+    }
+
+</div>
