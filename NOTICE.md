@@ -9,6 +9,11 @@ Component. IdentityServer4.AccessTokenValidation 2.7.0
 Open Source License/Copyright Notice. Apache License 2.0. Copyright (c) 2018 Brock Allen, Dominick Baier.
 
 
+Component. Microsoft.ApplicationInsights 2.10.0
+
+Open Source License/Copyright Notice. The MIT License (MIT). Copyright (c) 2015 Microsoft
+
+
 Component. Microsoft.AspNetCore.App
 
 Open Source License/Copyright Notice. Apache License 2.0. Copyright (c) .NET Foundation and Contributors
@@ -80,6 +85,11 @@ License/Copyright Notice. Proprietary License. Copyright (c) 2019 xappido ag.
 
 
 Component. xappido.Storage.Azure 1.0.3
+
+License/Copyright Notice. Proprietary License. Copyright (c) 2019 xappido ag.
+
+
+Component. xappido.Sts 1.1.0-alpha.65
 
 License/Copyright Notice. Proprietary License. Copyright (c) 2019 xappido ag.
 
