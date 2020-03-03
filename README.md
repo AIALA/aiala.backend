@@ -24,11 +24,12 @@ dotnet run
 Configure package feeds (especially xappido Portal package feed) either globally or locally within aiala.backend.
 
 Add xappido feed globally by using `nuget cli` and authorize by using credential provider
-> `nuget sources Add -Name "xappido" -Source https://xappido.pkgs.visualstudio.com/`
+
+`nuget sources Add -Name "xappido" -Source https://xappido.pkgs.visualstudio.com/...`
 
 If your prefer configure feed locally, use Visual Studios' NuGet Package Manager or add a nuget.config file to your project, in the same folder as .sln file.
 
-```
+```XML
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <packageSources>
@@ -44,7 +45,7 @@ All required options for _backend_ and as well for _token server_ are within the
 While development time it's recommended to use [Secret Manager](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows#how-the-secret-manager-tool-works) to store sensitive data within `secrets.json` file.
 
 ## How to run
-COnfigure both projects _backend_ and _token server_ as startup projects and run those. Launch options are stored on `Properties/launchSettings.json` and are defined as default to:
+Configure both projects _backend_ and _token server_ as startup projects and run those. Launch options are stored on `properties/launchSettings.json` and are defined as default to:
 * Backend > http://localhost:5500
 * Token Server > http://localhost:5500
 
@@ -52,5 +53,3 @@ COnfigure both projects _backend_ and _token server_ as startup projects and run
 See mentioned documentation for any further information. If you like to use AIALA within your organisation feel free and get in touch with [AIALA Project Team](mailto:aiala@xappido.com).
 
 Backend API documentation will be genereated at runtime and is available at http://localhost:5500/api/docs.
-
-
